@@ -40,9 +40,8 @@ export default function SwirlTransition({
   const wrapRef = useRef<HTMLDivElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
-  const counterRef = useRef<HTMLSpanElement>(null);
-  const progressLineRef = useRef<HTMLDivElement>(null);
-  const preloaderElementsRef = useRef<HTMLDivElement>(null);
+  const logoImgRef = useRef<HTMLDivElement>(null);
+  const agencyTextRef = useRef<HTMLDivElement>(null);
 
   const [isTransitioning, setIsTransitioning] = useState(true);
   const isNavigatingRef = useRef(false);
@@ -114,7 +113,7 @@ export default function SwirlTransition({
         },
       });
 
-      // Fade out logo / preloader UI
+      // Fade out logo / branding composition smoothly
       if (logo) {
         tl.to(
           logo,
@@ -128,12 +127,12 @@ export default function SwirlTransition({
         );
       }
 
-      // Swirl unroll (matching extrafazant's power1/power2 curve)
+      // Cinematic swirl unroll (extending slightly to 1.35s for filmic motion)
       tl.to(
         anim,
         {
           progress: 1,
-          duration: 1.25,
+          duration: 1.35,
           ease: 'power2.inOut',
           onUpdate: () => {
             const p = anim.progress;
@@ -181,9 +180,13 @@ export default function SwirlTransition({
       wrap.style.pointerEvents = 'all';
       setIsTransitioning(true);
 
-      // Hide preloader counter elements during route transitions (clean typography only)
-      if (preloaderElementsRef.current) {
-        preloaderElementsRef.current.style.display = 'none';
+      // Ensure inner logo elements are settled
+      if (logoImgRef.current && agencyTextRef.current) {
+        gsap.set([logoImgRef.current, agencyTextRef.current], {
+          scale: 1,
+          y: 0,
+          opacity: 1,
+        });
       }
 
       // Start empty with thin stroke
@@ -255,36 +258,71 @@ export default function SwirlTransition({
     [playCover, router]
   );
 
-  // INITIAL PRELOADER: Holds for exactly 2 seconds before the swirl transition reveals the site
+  // INITIAL CINEMATIC BRAND INTRO:
+  // Pure logo & "CREATIVE AGENCY" kinetic reveal from bottom-centre, hold, then swirl unrolls
   useEffect(() => {
-    const counter = counterRef.current;
-    const progressLine = progressLineRef.current;
+    const logoEl = logoImgRef.current;
+    const agencyText = agencyTextRef.current;
 
-    // Animate the 00% -> 100% counter and hairline progress bar across the 2-second hold
-    const counterObj = { value: 0 };
-    const counterTween = gsap.to(counterObj, {
-      value: 100,
-      duration: 1.85,
-      ease: 'power1.inOut',
-      onUpdate: () => {
-        if (counter) {
-          const val = Math.floor(counterObj.value);
-          counter.textContent = `${val < 10 ? '0' + val : val}%`;
-        }
-        if (progressLine) {
-          progressLine.style.width = `${counterObj.value}%`;
-        }
-      },
-    });
+    // Set initial entrance state: scale 0 from bottom-centre with downward offset
+    if (logoEl && agencyText) {
+      gsap.set([logoEl, agencyText], {
+        scale: 0,
+        y: 45,
+        opacity: 0,
+        transformOrigin: '50% 100%',
+      });
+    }
 
-    // Hold on screen for 2.0 seconds before starting the swirl transition unroll
-    const timer = setTimeout(() => {
-      playReveal();
-    }, 2000);
+    const masterTl = gsap.timeline();
+
+    // 1. Logo kinetic reveal: emerges gracefully from bottom to center (0.95s)
+    if (logoEl) {
+      masterTl.to(
+        logoEl,
+        {
+          scale: 1,
+          y: 0,
+          opacity: 1,
+          duration: 0.95,
+          ease: 'power3.out',
+        },
+        0.12
+      );
+    }
+
+    // 2. Supporting "CREATIVE AGENCY" text follows with smooth stagger (0.65s)
+    if (agencyText) {
+      masterTl.to(
+        agencyText,
+        {
+          scale: 1,
+          y: 0,
+          opacity: 1,
+          duration: 0.65,
+          ease: 'power3.out',
+        },
+        0.42
+      );
+    }
+
+    // 3. Brand composition hold (0.65s pause) -> coordinate with page readiness -> trigger swirl reveal
+    const triggerRevealWhenReady = () => {
+      if (typeof document !== 'undefined' && document.readyState !== 'complete') {
+        window.addEventListener('load', () => playReveal(), { once: true });
+      } else {
+        playReveal();
+      }
+    };
+
+    masterTl.call(
+      triggerRevealWhenReady,
+      undefined,
+      1.8
+    );
 
     return () => {
-      clearTimeout(timer);
-      counterTween.kill();
+      masterTl.kill();
     };
   }, [playReveal]);
 
@@ -397,38 +435,31 @@ export default function SwirlTransition({
           </svg>
         </div>
 
-        {/* Minimalist Centered Brand Monogram & 2-Second Preloader Elements */}
+        {/* Minimalist Centered Brand Composition: Logo + "CREATIVE AGENCY" */}
         <div
           ref={logoRef}
           className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none z-10 px-6"
         >
-          <div className="font-heading font-black text-white text-4xl md:text-6xl tracking-[0.35em] uppercase drop-shadow-[0_4px_24px_rgba(0,0,0,0.6)]">
-            TEDCOOL
-          </div>
-          <div className="mt-2 text-xs md:text-sm tracking-[0.45em] text-white/85 uppercase font-mono font-medium">
-            Creative Agency
+          {/* Actual Company Logo Asset */}
+          <div
+            ref={logoImgRef}
+            className="w-56 sm:w-64 md:w-80 lg:w-92 max-w-[85vw] flex items-center justify-center"
+            style={{ transformOrigin: '50% 100%' }}
+          >
+            <img
+              src="/images/tedcool-logo-white.png"
+              alt="Tedcool Media"
+              className="w-full h-auto object-contain drop-shadow-[0_4px_24px_rgba(0,0,0,0.35)]"
+            />
           </div>
 
-          {/* Preloader Counter & Progress Indicator (active during the 2s preloader) */}
+          {/* "CREATIVE AGENCY" text directly underneath */}
           <div
-            ref={preloaderElementsRef}
-            className="mt-8 flex flex-col items-center gap-3 w-48 max-w-full"
+            ref={agencyTextRef}
+            className="mt-3 sm:mt-4 text-xs md:text-sm tracking-[0.45em] text-white/90 uppercase font-mono font-medium text-center"
+            style={{ transformOrigin: '50% 100%' }}
           >
-            {/* Hairline progress bar */}
-            <div className="w-full h-[1.5px] bg-white/20 rounded-full overflow-hidden">
-              <div
-                ref={progressLineRef}
-                className="h-full bg-white transition-all duration-75"
-                style={{ width: '0%' }}
-              />
-            </div>
-            {/* Minimalist 00% -> 100% Counter */}
-            <span
-              ref={counterRef}
-              className="text-white/80 font-mono text-xs tracking-[0.25em]"
-            >
-              00%
-            </span>
+            Creative Agency
           </div>
         </div>
       </div>

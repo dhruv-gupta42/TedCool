@@ -9,20 +9,20 @@ export interface BrandItem {
 }
 
 // Crisp, authentic SVG logos for industry leaders
-export const SpotifyLogo = () => (
-  <svg viewBox="0 0 24 24" className="h-6 w-6 fill-current text-[#1DB954]" aria-label="Spotify">
+export const SpotifyLogo = ({ className = "h-6 w-6" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" className={`${className} fill-current text-[#1DB954]`} aria-label="Spotify">
     <path d="M12 2C6.477 2 2 6.477 2 12c0 5.524 4.477 10 10 10s10-4.476 10-10c0-5.523-4.477-10-10-10zm4.586 14.424c-.18.295-.563.387-.857.207-2.35-1.435-5.308-1.76-8.792-.963-.335.077-.67-.133-.746-.468-.077-.334.132-.67.467-.746 3.808-.87 7.076-.496 9.72 1.115.295.18.388.563.208.855zm1.226-2.724c-.226.367-.707.482-1.074.256-2.69-1.654-6.79-2.134-9.97-1.168-.413.125-.85-.11-1-.523-.15-.413.11-.85.523-1 3.63-1.103 8.147-.568 11.265 1.36.368.226.483.708.256 1.075zm.105-2.835C14.692 8.95 8.575 8.75 5.01 9.832c-.496.15-1.025-.133-1.176-.63-.15-.496.133-1.025.63-1.176 4.094-1.243 10.85-1.01 14.65 1.246.447.265.593.844.328 1.29-.265.448-.844.594-1.29.328z" />
   </svg>
 );
 
-export const NetflixLogo = () => (
-  <svg viewBox="0 0 111 30" className="h-5 w-auto fill-[#E50914]" aria-label="Netflix">
+export const NetflixLogo = ({ className = "h-5 w-auto" }: { className?: string }) => (
+  <svg viewBox="0 0 111 30" className={`${className} fill-[#E50914]`} aria-label="Netflix">
     <path d="M105.062 14.28L111 30c-1.75-.25-3.5-.4-5.25-.49l-3.48-9.87-3.48 9.53c-1.62-.08-3.25-.1-4.88-.08l5.88-15.09-5.7-14.08h4.81l3.37 9.07 3.38-9.07h4.88l-5.74 14.28zM89.77 0v28.84c-1.65.04-3.3.13-4.95.27V0h4.95zm-9.35 12.33l-4.57 16.94c-1.57.17-3.14.38-4.7.63l5.82-20.9h-6.28V4.99h17.31v4.01h-7.58v3.33zm-18.73-7.34v8.28h7.94v4.01h-7.94v7.71c2.81-.22 5.63-.38 8.46-.48V29c-4.48.16-8.96.44-13.41.83V4.99h13.41v4.01l-8.46-.01zm-15.35 0v19.46c-1.65.17-3.29.38-4.94.63V0h4.94v4.99zm-13.62 0v7.65c2.4-.2 4.81-.34 7.23-.42v4.01c-2.41.08-4.83.21-7.23.41v7.63c3.08-.2 6.18-.34 9.28-.42V29c-4.76.13-9.52.38-14.24.74V4.99h14.24v4.01l-9.28-.01zM4.95 0v17.48L14.77 0h5.2v29.62c-1.66.1-3.32.23-4.97.4V11.23L4.95 29.83C3.3 30.07 1.65 30.34 0 30.64V0h4.95z" />
   </svg>
 );
 
-export const NikeLogo = () => (
-  <svg viewBox="0 0 24 24" className="h-6 w-auto fill-current text-white" aria-label="Nike">
+export const NikeLogo = ({ className = "h-6 w-auto" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" className={`${className} fill-current text-white`} aria-label="Nike">
     <path d="M21.71 4.54c-.28-.15-.62-.12-.87.08L6.47 16.35c-1.35-1.2-2.58-2.22-3.6-2.97-.9-.66-1.78-.93-2.35-.55-.57.37-.58 1.34.02 2.58 1.05 2.16 3.65 5.56 7.42 5.56 1.84 0 3.73-.87 5.59-2.58C18.66 13.9 22.8 7.3 22 5.2c-.08-.24-.18-.46-.29-.66z" />
   </svg>
 );
@@ -66,18 +66,18 @@ export const PlayStationLogo = () => (
   </svg>
 );
 
-export const OnePlusLogo = () => (
-  <div className="flex items-center gap-1.5 font-heading font-black text-white text-base">
-    <div className="w-5 h-5 rounded-sm bg-[#EB0028] text-white flex items-center justify-center text-xs font-black">
+export const OnePlusLogo = ({ className = "text-base" }: { className?: string }) => (
+  <div className={`flex items-center gap-2 font-heading font-black text-white ${className}`}>
+    <div className="w-6 h-6 rounded-sm bg-[#EB0028] text-white flex items-center justify-center text-xs font-black">
       1
     </div>
     <span className="tracking-wider">ONEPLUS</span>
   </div>
 );
 
-export const BoAtLogo = () => (
-  <div className="flex items-center gap-1.5 font-heading font-black text-white text-base tracking-wider">
-    <svg viewBox="0 0 24 24" className="w-5 h-5 fill-[#E50000]">
+export const BoAtLogo = ({ className = "text-base" }: { className?: string }) => (
+  <div className={`flex items-center gap-2 font-heading font-black text-white tracking-wider ${className}`}>
+    <svg viewBox="0 0 24 24" className="w-6 h-6 fill-[#E50000]">
       <path d="M12 2L4 15h16L12 2zm0 4.5l4.5 7.5h-9L12 6.5zM2 18l3 4h14l3-4H2z" />
     </svg>
     <span>bo<span className="text-[#E50000]">A</span>t</span>
@@ -99,9 +99,9 @@ export const ZomatoLogo = () => (
   </div>
 );
 
-export const RedBullLogo = () => (
-  <div className="flex items-center gap-1.5 font-heading font-black text-white text-sm tracking-widest">
-    <span className="w-2.5 h-2.5 rounded-full bg-[#ED1C24] inline-block shadow-[0_0_8px_#ED1C24]" />
+export const RedBullLogo = ({ className = "text-sm" }: { className?: string }) => (
+  <div className={`flex items-center gap-2.5 font-heading font-black text-white tracking-widest ${className}`}>
+    <span className="w-3 h-3 rounded-full bg-[#ED1C24] inline-block shadow-[0_0_8px_#ED1C24]" />
     <span>RED BULL</span>
   </div>
 );
@@ -186,3 +186,46 @@ export const UrbanCompanyLogo = () => (
     <span>Urban Company</span>
   </div>
 );
+
+export interface BrandMarqueeItem {
+  id: string;
+  name: string;
+  node: React.ReactNode;
+}
+
+export const marqueeSelectedBrands: BrandMarqueeItem[] = [
+  { id: 'nike', name: 'Nike', node: <NikeLogo className="h-9 sm:h-10 md:h-11 w-auto" /> },
+  { id: 'spotify', name: 'Spotify', node: <SpotifyLogo className="h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11" /> },
+  { id: 'netflix', name: 'Netflix', node: <NetflixLogo className="h-8 sm:h-9 md:h-10 w-auto" /> },
+  { id: 'oneplus', name: 'OnePlus', node: <OnePlusLogo className="text-xl sm:text-2xl md:text-3xl" /> },
+  { id: 'boat', name: 'boAt', node: <BoAtLogo className="text-xl sm:text-2xl md:text-3xl" /> },
+  { id: 'redbull', name: 'Red Bull', node: <RedBullLogo className="text-lg sm:text-xl md:text-2xl" /> },
+];
+
+export const brandMarqueeList: BrandMarqueeItem[] = [
+  { id: 'spotify', name: 'Spotify', node: <SpotifyLogo /> },
+  { id: 'netflix', name: 'Netflix', node: <NetflixLogo /> },
+  { id: 'nike', name: 'Nike', node: <NikeLogo /> },
+  { id: 'adidas', name: 'Adidas', node: <AdidasLogo /> },
+  { id: 'puma', name: 'Puma', node: <PumaLogo /> },
+  { id: 'apple', name: 'Apple', node: <AppleLogo /> },
+  { id: 'youtube', name: 'YouTube', node: <YouTubeLogo /> },
+  { id: 'google', name: 'Google', node: <GoogleLogo /> },
+  { id: 'playstation', name: 'PlayStation', node: <PlayStationLogo /> },
+  { id: 'oneplus', name: 'OnePlus', node: <OnePlusLogo /> },
+  { id: 'boat', name: 'boAt', node: <BoAtLogo /> },
+  { id: 'swiggy', name: 'Swiggy', node: <SwiggyLogo /> },
+  { id: 'zomato', name: 'Zomato', node: <ZomatoLogo /> },
+  { id: 'redbull', name: 'Red Bull', node: <RedBullLogo /> },
+  { id: 'pepsi', name: 'Pepsi', node: <PepsiLogo /> },
+  { id: 'tata', name: 'Tata', node: <TataLogo /> },
+  { id: 'cred', name: 'Cred', node: <CredLogo /> },
+  { id: 'levis', name: "Levi's", node: <LevisLogo /> },
+  { id: 'ikea', name: 'Ikea', node: <IkeaLogo /> },
+  { id: 'jiohotstar', name: 'JioHotstar', node: <JioHotstarLogo /> },
+  { id: 'ponds', name: "Pond's", node: <PondsLogo /> },
+  { id: 'dotandkey', name: 'Dot & Key', node: <DotAndKeyLogo /> },
+  { id: 'wishcare', name: 'WishCare', node: <WishCareLogo /> },
+  { id: 'liquidiv', name: 'Liquid I.V.', node: <LiquidIVLogo /> },
+  { id: 'urbancompany', name: 'Urban Company', node: <UrbanCompanyLogo /> },
+];

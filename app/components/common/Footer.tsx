@@ -8,6 +8,66 @@ import { gsap, ScrollTrigger, EASE } from '@/app/lib/animations/gsapConfig';
 import { contactInfo, getWhatsAppUrl, getEmailUrl, siteConfig } from '@/app/data/siteContent';
 import { ArrowUp } from 'lucide-react';
 
+interface UnderlineLinkProps {
+  href?: string;
+  onClick?: (e: React.MouseEvent) => void;
+  children: React.ReactNode;
+  isActive?: boolean;
+  isExternal?: boolean;
+}
+
+function UnderlineLink({
+  href,
+  onClick,
+  children,
+  isActive = false,
+  isExternal = false,
+}: UnderlineLinkProps) {
+  const content = (
+    <span className="group relative inline-flex flex-col w-fit">
+      <span
+        className={`transition-colors duration-300 text-sm ${
+          isActive ? 'text-white font-medium' : 'text-text-secondary group-hover:text-white'
+        }`}
+      >
+        {children}
+      </span>
+      {/* Kinetic Underline: draws in from left to right on hover enter, sweeps out to right on hover leave */}
+      <span
+        className={`h-[2px] w-full bg-brand rounded-full transition-transform duration-350 ease-[cubic-bezier(0.25,1,0.5,1)] origin-right scale-x-0 group-hover:scale-x-100 group-hover:origin-left shadow-[0_0_8px_rgba(229,9,20,0.55)] mt-0.5 ${
+          isActive ? '!scale-x-100 !origin-left' : ''
+        }`}
+      />
+    </span>
+  );
+
+  if (onClick) {
+    return (
+      <button onClick={onClick} className="text-left w-fit cursor-pointer">
+        {content}
+      </button>
+    );
+  }
+
+  if (isExternal && href) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" className="w-fit">
+        {content}
+      </a>
+    );
+  }
+
+  if (href) {
+    return (
+      <Link href={href} className="w-fit">
+        {content}
+      </Link>
+    );
+  }
+
+  return content;
+}
+
 export default function Footer() {
   const footerRef = useRef<HTMLElement>(null);
   const pathname = usePathname();
@@ -73,59 +133,38 @@ export default function Footer() {
           {/* Navigation */}
           <div className="footer-animate">
             <h4 className="text-xs uppercase tracking-[0.3em] text-text-muted mb-6 font-heading">Navigation</h4>
-            <div className="flex flex-col gap-3">
-              <button
-                onClick={handleServicesClick}
-                className="text-text-secondary hover:text-brand transition-colors text-sm text-left"
-              >
+            <div className="flex flex-col gap-3.5">
+              <UnderlineLink onClick={handleServicesClick}>
                 Services
-              </button>
-              <Link href="/work" className="text-text-secondary hover:text-brand transition-colors text-sm">
+              </UnderlineLink>
+              <UnderlineLink href="/work" isActive={pathname === '/work'}>
                 Work
-              </Link>
-              <Link href="/about" className="text-text-secondary hover:text-brand transition-colors text-sm">
+              </UnderlineLink>
+              <UnderlineLink href="/about" isActive={pathname === '/about'}>
                 About
-              </Link>
+              </UnderlineLink>
             </div>
           </div>
 
           {/* Contact */}
           <div className="footer-animate">
             <h4 className="text-xs uppercase tracking-[0.3em] text-text-muted mb-6 font-heading">Get in Touch</h4>
-            <div className="flex flex-col gap-3">
-              <a
-                href={getWhatsAppUrl()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-text-secondary hover:text-brand transition-colors text-sm"
-              >
+            <div className="flex flex-col gap-3.5">
+              <UnderlineLink href={getWhatsAppUrl()} isExternal>
                 WhatsApp
-              </a>
-              <a
-                href={getEmailUrl('Project Enquiry')}
-                className="text-text-secondary hover:text-brand transition-colors text-sm"
-              >
+              </UnderlineLink>
+              <UnderlineLink href={getEmailUrl('Project Enquiry')} isExternal>
                 {contactInfo.email}
-              </a>
+              </UnderlineLink>
               {contactInfo.instagram && (
-                <a
-                  href={contactInfo.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-text-secondary hover:text-brand transition-colors text-sm"
-                >
+                <UnderlineLink href={contactInfo.instagram} isExternal>
                   Instagram
-                </a>
+                </UnderlineLink>
               )}
               {contactInfo.youtube && (
-                <a
-                  href={contactInfo.youtube}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-text-secondary hover:text-brand transition-colors text-sm"
-                >
+                <UnderlineLink href={contactInfo.youtube} isExternal>
                   YouTube
-                </a>
+                </UnderlineLink>
               )}
             </div>
           </div>
@@ -138,10 +177,15 @@ export default function Footer() {
           </p>
           <button
             onClick={scrollToTop}
-            className="flex items-center gap-2 text-text-secondary hover:text-brand transition-colors text-xs uppercase tracking-widest group"
+            className="group flex items-center gap-2 text-xs uppercase tracking-widest cursor-pointer"
           >
-            Back to top
-            <ArrowUp className="w-3 h-3 group-hover:-translate-y-1 transition-transform" />
+            <span className="relative inline-flex flex-col w-fit">
+              <span className="text-text-secondary group-hover:text-white transition-colors duration-300">
+                Back to top
+              </span>
+              <span className="h-[1.5px] w-full bg-brand rounded-full transition-transform duration-350 ease-[cubic-bezier(0.25,1,0.5,1)] origin-right scale-x-0 group-hover:scale-x-100 group-hover:origin-left shadow-[0_0_8px_rgba(229,9,20,0.5)] mt-0.5" />
+            </span>
+            <ArrowUp className="w-3.5 h-3.5 text-text-secondary group-hover:text-brand group-hover:-translate-y-1 transition-all duration-300" />
           </button>
         </div>
       </div>

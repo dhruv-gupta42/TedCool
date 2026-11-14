@@ -5,7 +5,12 @@ import { gsap, EASE, DURATION } from '@/app/lib/animations/gsapConfig';
 import { contactCTAContent, getWhatsAppUrl, getEmailUrl, contactInfo } from '@/app/data/siteContent';
 import { MessageCircle, Mail, ArrowUpRight, Clock, ShieldCheck, Sparkles } from 'lucide-react';
 
-export default function ContactCTA() {
+interface ContactCTAProps {
+  headline?: React.ReactNode;
+  description?: string;
+}
+
+export default function ContactCTA({ headline, description }: ContactCTAProps = {}) {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -53,14 +58,22 @@ export default function ContactCTA() {
           {/* Left: Headline & narrative */}
           <div className="lg:col-span-7">
             <h2 className="cta-animate text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-heading font-bold text-text-primary tracking-tight leading-[1.02] mb-8">
-              HAVE A PROJECT<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand via-rose-500 to-red-600">
-                IN MIND?
-              </span>
+              {headline || (
+                <>
+                  HAVE A PROJECT<br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand via-rose-500 to-red-600">
+                    IN MIND?
+                  </span>
+                </>
+              )}
             </h2>
 
             <p className="cta-animate text-lg md:text-2xl text-text-secondary leading-relaxed max-w-2xl">
-              {contactCTAContent.description} Reach out directly and let&apos;s build culture-defining work that sets your brand apart.
+              {description || (
+                <>
+                  {contactCTAContent.description} Reach out directly and let&apos;s build culture-defining work that sets your brand apart.
+                </>
+              )}
             </p>
           </div>
 

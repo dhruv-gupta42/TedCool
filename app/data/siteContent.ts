@@ -60,29 +60,112 @@ export const contactCTAContent = {
 };
 
 export const aboutContent = {
-  heroHeadline: 'WE ARE TEDCOOL MEDIA',
-  heroDescription: 'A creative agency built for the digital age.',
-  whoWeAre: {
-    headline: 'WHO WE ARE',
-    description: 'Tedcool Media is a creative agency that specializes in building powerful digital presences. We work at the intersection of creativity and strategy, helping brands tell their stories in ways that resonate with modern audiences.',
-    additionalText: 'Our team brings together diverse expertise in social media, content production, influencer partnerships, and talent management to deliver comprehensive creative solutions.',
+  hero: {
+    tag: 'WE ARE TEDCOOL MEDIA',
+    hook: '9 years in. Still curious. Never here to play it safe.',
+    aboutUsLine: "We've been in the game for 9 years. Still haven't run out of ideas.",
+    introLead: 'We’re a creative media and marketing agency that believes good work starts with understanding people, not just platforms.',
+    introStory: 'For 9 years, we’ve been working around brands, audiences, content and the ever-changing digital landscape. And if there’s one thing we’ve learnt, it’s this: every brand has a story, but not every brand knows how to tell it.',
+    introCallout: 'That’s where we come in.',
   },
-  philosophy: {
-    headline: 'OUR PHILOSOPHY',
-    description: 'We believe in the power of authentic storytelling. In a world saturated with content, the brands that win are the ones that dare to be genuine, bold, and unforgettable.',
+  narrative: {
+    paragraphs: [
+      'From understanding what makes a brand tick to figuring out how it should show up, speak and connect with its audience, we bring strategy and creativity together to make things happen.',
+      'We work across social media, influencer marketing, talent collaborations and video production, helping brands turn ideas into communication that people actually notice, remember and connect with.',
+      'We like asking questions, challenging the obvious and finding the interesting angle others might miss.',
+    ],
+    punchline: 'Because honestly, the internet already has enough content. It needs better ideas.',
+    signoff: 'That’s Tedcool.',
   },
-  approach: {
-    headline: 'HOW WE WORK',
-    description: 'Every collaboration starts with listening. We immerse ourselves in your brand, understand your goals, and craft strategies that are as unique as your vision.',
-    steps: [
-      { number: '01', title: 'Listen & Understand', description: 'We start by understanding your brand, audience, and objectives.' },
-      { number: '02', title: 'Plan & Strategize', description: 'We develop comprehensive strategies tailored to your goals.' },
-      { number: '03', title: 'Create & Execute', description: 'We bring ideas to life with meticulous attention to craft.' },
-      { number: '04', title: 'Measure & Optimize', description: 'We analyze performance and continuously refine our approach.' },
+  difference: {
+    headline: "SO, WHAT'S THE TEDCOOL DIFFERENCE?",
+    whyTedcoolLine: "We don't just want to understand your brief. We want to understand your brand.",
+    points: [
+      {
+        number: '01',
+        title: 'NINE YEARS. NOT NINE TRENDS.',
+        description: 'Trends come and go. Algorithms keep changing. Understanding brands and people? That’s our thing.',
+      },
+      {
+        number: '02',
+        title: 'FIRST, WE GET YOU.',
+        description: 'No copy-paste strategies here. Every brand is different, and we like keeping it that way.',
+      },
+      {
+        number: '03',
+        title: 'SMALL TEAM. BIG ON INVOLVEMENT.',
+        description: 'Less hierarchy, more ideas. You work directly with the people who make things happen.',
+      },
+      {
+        number: '04',
+        title: 'CREATIVE MINDS. STRATEGIC THINKING.',
+        description: 'We like ideas that look good, work smart and actually mean something.',
+      },
+      {
+        number: '05',
+        title: 'LESS CONTENT. MORE PURPOSE.',
+        description: 'Not every trend needs a reel. Not every idea needs a post. We believe in creating with intent.',
+      },
+      {
+        number: '06',
+        title: 'BEYOND THE POST.',
+        description: 'We’re not here just to fill your content calendar. We’re here to help build your brand, one good idea at a time.',
+      },
     ],
   },
-  capabilities: {
+  howWeWork: {
+    headline: 'HOW WE WORK',
+    howWeWorkLine: 'First, we listen. Then we think. Then we make things happen.',
+    steps: [
+      {
+        number: '01',
+        title: 'FIRST, WE LISTEN.',
+        description: 'Before jumping into creative execution, we immerse ourselves in what makes your brand tick. We ask the uncomfortable questions, study your audience, and find the honest truth behind your product.',
+      },
+      {
+        number: '02',
+        title: 'THEN, WE THINK.',
+        description: 'Strategy meets sharp creative intuition. We challenge the obvious, cut through algorithmic noise, and uncover the distinct angle that turns heads and sticks in culture.',
+      },
+      {
+        number: '03',
+        title: 'THEN, WE MAKE THINGS HAPPEN.',
+        description: 'From high-concept video production to synchronized creator campaigns, our core team executes with intent. Seamless, impactful, and built to drive genuine human connection.',
+      },
+    ],
+  },
+  services: {
     headline: 'CAPABILITIES',
-    description: 'A full spectrum of creative services designed to elevate your brand.',
+    servicesLine: 'A little strategy. A lot of creativity. And absolutely no guesswork.',
+    items: [
+      {
+        title: 'Social Media Marketing',
+        description: 'High-impact campaigns and cultural presence that spark conversation and convert audiences into communities.',
+      },
+      {
+        title: 'Influencer Marketing',
+        description: 'Bespoke creator partnerships and native storytelling that build genuine brand credibility at scale.',
+      },
+      {
+        title: 'Talent Collaborations',
+        description: 'Strategic talent matching and management that connect visionary creators with ambitious brands.',
+      },
+      {
+        title: 'Video Production',
+        description: 'Cinematic commercials, episodic series, and short-form video crafted with commercial finish and artistic intent.',
+      },
+    ],
+  },
+  centralThought: {
+    mantra: [
+      'WE GET BRANDS.',
+      'WE GET PEOPLE.',
+      'WE GET IDEAS MOVING.',
+    ],
+    brandName: 'TEDCOOL MEDIA.',
+    closing: 'Nine years of understanding brands. Always making room for the next big idea.',
+  },
+  contact: {
+    contactLine: "Got a brief? A half-baked idea? A big ambition? We're listening.",
   },
 };
