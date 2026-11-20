@@ -1,6 +1,6 @@
 import Hero from '@/app/components/sections/Hero';
 import Introduction from '@/app/components/sections/Introduction';
-import FeaturedWork from '@/app/components/sections/FeaturedWork';
+import SelectedWork from '@/app/components/sections/SelectedWork';
 import Services from '@/app/components/sections/Services';
 import Testimonials from '@/app/components/sections/Testimonials';
 import Quote from '@/app/components/sections/Quote';
@@ -13,7 +13,7 @@ export default function Home() {
       <ServicesScrollHandler />
       <Hero />
       <Introduction />
-      <FeaturedWork />
+      <SelectedWork />
       <Services />
       <Testimonials />
       <ContactCTA />
