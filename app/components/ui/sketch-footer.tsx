@@ -3,22 +3,8 @@
 import * as React from "react"
 
 /**
- * Doodle Crew Footer — a site footer drawn like the last page of a sketchbook.
- * The brand's name is stamped across it in giant dry-brush ink, and a crew of
- * hand-drawn characters lives on the letters: one leans against the first
- * letter, one sits on top with its legs dangling, one peeks over the edge.
- * Little ink doodles (flames, snacks, stars) drift down around them.
- *
- * Scroll it into view and it plays out like a short storyboard: the ground line
- * draws itself, the letters stamp down one by one with a puff of ink, the crew
- * pops up, plops down or rises from behind their letters, the doodles start to
- * fall, and the line and buttons rise in last.
- *
- * Then it stays alive: every eye follows your pointer (and blinks), the lines
- * boil like hand-drawn animation, letters wobble when you hover them, a click
- * on any character makes it hop and say its line, and doodles scatter from the
- * pointer and pop when you catch one.
- *
+ * Sketch Footer — animated mascot footer for Tedcool Media.
+ * Hand-drawn characters interactive footer reflecting agency creativity.
  * No dependencies and nothing fetched: React is the only import, every drawing
  * is inline SVG, and the ink texture is an SVG filter.
  */
@@ -222,7 +208,7 @@ export interface FooterAction {
   onClick?: () => void
 }
 
-export interface DoodleCrewFooterProps {
+export interface SketchFooterProps {
   /** The giant word. Short, upper case, 4–9 letters reads best. */
   wordmark?: string
   /** Brand name, top left. */
@@ -572,7 +558,7 @@ const Link = ({ link, className }: { link: FooterLink; className?: string }) =>
     <span className={className}>{link.label}</span>
   )
 
-export default function DoodleCrewFooter({
+export default function SketchFooter({
   wordmark = "MISCHIEF",
   brand = "mischief",
   blurb = "We draw every frame by hand and ship a new chapter every season. Come make a little trouble with us.",
@@ -594,7 +580,7 @@ export default function DoodleCrewFooter({
   interactive = true,
   height = "760px",
   className,
-}: DoodleCrewFooterProps) {
+}: SketchFooterProps) {
   const uid = React.useId().replace(/[^a-zA-Z0-9_-]/g, "")
   const word = wordmark.toUpperCase()
   const chars = React.useMemo(() => Array.from(word), [word])
@@ -1367,3 +1353,7 @@ const CSS =
   "@media (max-width:860px){.dcf-top{grid-template-columns:1fr;grid-template-rows:auto}.dcf-brand,.dcf-blurb,.dcf-cols{grid-column:1;grid-row:auto}.dcf-cols{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:14px;row-gap:22px}.dcf-copy{width:100%;margin-right:0}}" +
   "@media (max-width:480px){.dcf-btn{height:42px;font-size:13.5px;padding:0 16px 0 13px}.dcf-bubble{font-size:12px;padding:6px 10px}.dcf-totop span{display:none}}" +
   "@media (prefers-reduced-motion:reduce){.dcf *,.dcf *::before,.dcf *::after{animation:none!important;transition:none!important}.dcf .dcf-letter,.dcf .dcf-arrive,.dcf .dcf-word,.dcf .dcf-pop,.dcf .dcf-rise,.dcf .dcf-fade,.dcf .dcf-doodle-in{opacity:1!important}.dcf .dcf-draw{stroke-dashoffset:0!important}.dcf .dcf-dust{opacity:0!important}}"
+
+export { SketchFooter as DoodleCrewFooter }
+export type DoodleCrewFooterProps = SketchFooterProps;
+

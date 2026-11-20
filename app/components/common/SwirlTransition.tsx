@@ -42,8 +42,7 @@ export default function SwirlTransition({
   const logoRef = useRef<HTMLDivElement>(null);
   const logoImgRef = useRef<HTMLDivElement>(null);
   const agencyTextRef = useRef<HTMLDivElement>(null);
-
-  const [isTransitioning, setIsTransitioning] = useState(true);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const isNavigatingRef = useRef(false);
   const timelineRef = useRef<gsap.core.Timeline | null>(null);
 
@@ -62,7 +61,7 @@ export default function SwirlTransition({
 
   // Reveal transition: unroll the swirl to reveal the page
   const playReveal = useCallback(
-    (onComplete?: () => void) => {
+    (onComplete?: () => void, showBrand = true) => {
       const path = pathRef.current;
       const wrap = wrapRef.current;
       const logo = logoRef.current;
@@ -99,7 +98,7 @@ export default function SwirlTransition({
       path.setAttribute('stroke-width', '320');
 
       if (logo) {
-        gsap.set(logo, { opacity: 1, scale: 1 });
+        gsap.set(logo, { opacity: showBrand ? 1 : 0, scale: 1 });
       }
 
       const anim = { progress: 0 };
@@ -114,7 +113,7 @@ export default function SwirlTransition({
       });
 
       // Fade out logo / branding composition smoothly
-      if (logo) {
+      if (logo && showBrand) {
         tl.to(
           logo,
           {
@@ -149,6 +148,13 @@ export default function SwirlTransition({
     },
     [getLength]
   );
+
+  // The standalone preloader hands its solid-red cover to this SVG reveal.
+  useEffect(() => {
+    const handlePreloaderComplete = () => playReveal(undefined, false);
+    window.addEventListener('tedcool:preloader-complete', handlePreloaderComplete);
+    return () => window.removeEventListener('tedcool:preloader-complete', handlePreloaderComplete);
+  }, [playReveal]);
 
   // Cover transition: draw in the swirl and swell to flood screen solid red
   const playCover = useCallback(
@@ -258,74 +264,6 @@ export default function SwirlTransition({
     [playCover, router]
   );
 
-  // INITIAL CINEMATIC BRAND INTRO:
-  // Pure logo & "CREATIVE AGENCY" kinetic reveal from bottom-centre, hold, then swirl unrolls
-  useEffect(() => {
-    const logoEl = logoImgRef.current;
-    const agencyText = agencyTextRef.current;
-
-    // Set initial entrance state: scale 0 from bottom-centre with downward offset
-    if (logoEl && agencyText) {
-      gsap.set([logoEl, agencyText], {
-        scale: 0,
-        y: 45,
-        opacity: 0,
-        transformOrigin: '50% 100%',
-      });
-    }
-
-    const masterTl = gsap.timeline();
-
-    // 1. Logo kinetic reveal: emerges gracefully from bottom to center (0.95s)
-    if (logoEl) {
-      masterTl.to(
-        logoEl,
-        {
-          scale: 1,
-          y: 0,
-          opacity: 1,
-          duration: 0.95,
-          ease: 'power3.out',
-        },
-        0.12
-      );
-    }
-
-    // 2. Supporting "CREATIVE AGENCY" text follows with smooth stagger (0.65s)
-    if (agencyText) {
-      masterTl.to(
-        agencyText,
-        {
-          scale: 1,
-          y: 0,
-          opacity: 1,
-          duration: 0.65,
-          ease: 'power3.out',
-        },
-        0.42
-      );
-    }
-
-    // 3. Brand composition hold (0.65s pause) -> coordinate with page readiness -> trigger swirl reveal
-    const triggerRevealWhenReady = () => {
-      if (typeof document !== 'undefined' && document.readyState !== 'complete') {
-        window.addEventListener('load', () => playReveal(), { once: true });
-      } else {
-        playReveal();
-      }
-    };
-
-    masterTl.call(
-      triggerRevealWhenReady,
-      undefined,
-      1.8
-    );
-
-    return () => {
-      masterTl.kill();
-    };
-  }, [playReveal]);
-
   const prevPathnameRef = useRef(pathname);
 
   // When pathname actually changes (route navigation completes), reveal the new page
@@ -404,7 +342,7 @@ export default function SwirlTransition({
         ref={wrapRef}
         className="fixed inset-0 z-[9999] overflow-hidden pointer-events-auto"
         style={{
-          visibility: 'visible',
+          visibility: 'hidden',
           backgroundColor: 'transparent',
         }}
         aria-hidden="true"
