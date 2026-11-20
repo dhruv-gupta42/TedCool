@@ -3,6 +3,7 @@
 import SketchFooter from '@/app/components/ui/sketch-footer';
 import type { CrewMember, FooterColumn, FooterAction } from '@/app/components/ui/sketch-footer';
 import { contactInfo, getWhatsAppUrl, getEmailUrl, siteConfig } from '@/app/data/siteContent';
+import { InstagramIcon, YouTubeIcon, LinkedInIcon } from '@/app/components/common/SocialIcons';
 
 // Hand-drawn characters customized across "TEDCOOL" (7 letters: T=0, E=1, D=2, C=3, O=4, O=5, L=6)
 const TEDCOOL_CREW: CrewMember[] = [
@@ -44,9 +45,21 @@ const TEDCOOL_CREW: CrewMember[] = [
     {
       title: 'Follow Us',
       links: [
-        { label: 'Instagram', href: contactInfo.instagram },
-        { label: 'YouTube', href: contactInfo.youtube },
-        { label: 'LinkedIn', href: contactInfo.linkedin },
+        {
+          label: 'Instagram',
+          href: contactInfo.instagram,
+          icon: <InstagramIcon className="w-5 h-5" />,
+        },
+        {
+          label: 'YouTube',
+          href: contactInfo.youtube,
+          icon: <YouTubeIcon className="w-5 h-5" />,
+        },
+        {
+          label: 'LinkedIn',
+          href: contactInfo.linkedin,
+          icon: <LinkedInIcon className="w-5 h-5" />,
+        },
       ],
     },
   ];

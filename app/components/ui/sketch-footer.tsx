@@ -193,6 +193,7 @@ export interface CrewMember {
 export interface FooterLink {
   label: string
   href?: string
+  icon?: React.ReactNode
 }
 
 export interface FooterColumn {
@@ -1013,18 +1014,39 @@ export default function SketchFooter({
         {blurb && <p className="dcf-blurb">{blurb}</p>}
         {columns.length > 0 && (
           <nav className="dcf-cols" aria-label="Footer">
-            {columns.map((col) => (
-              <div className="dcf-col" key={col.title}>
-                <h3 className="dcf-coltitle">{col.title}</h3>
-                <ul>
-                  {col.links.map((l) => (
-                    <li key={l.label}>
-                      <Link link={l} className="dcf-link" />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+            {columns.map((col) => {
+              const hasIcons = col.links.some((l) => !!l.icon);
+              return (
+                <div className={`dcf-col ${hasIcons ? 'dcf-col-social' : ''}`} key={col.title}>
+                  <h3 className="dcf-coltitle">{col.title}</h3>
+                  {hasIcons ? (
+                    <div className="dcf-social-row">
+                      {col.links.map((l) => (
+                        <a
+                          key={l.label}
+                          href={l.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="dcf-social-btn"
+                          aria-label={l.label}
+                          title={l.label}
+                        >
+                          {l.icon || <span>{l.label}</span>}
+                        </a>
+                      ))}
+                    </div>
+                  ) : (
+                    <ul>
+                      {col.links.map((l) => (
+                        <li key={l.label}>
+                          <Link link={l} className="dcf-link" />
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              );
+            })}
           </nav>
         )}
       </div>
@@ -1247,6 +1269,10 @@ const CSS =
   ".dcf-cols{grid-column:2;grid-row:1/span 2;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(16px,2.5vw,40px)}" +
   ".dcf-coltitle{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}" +
   ".dcf-col li{margin:0 0 7px}" +
+  ".dcf-social-row{display:flex;align-items:center;gap:12px;margin-top:4px;flex-wrap:wrap}" +
+  ".dcf-social-btn{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:999px;border:1.5px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.03);color:var(--dcf-soft,#888);transition:all .28s cubic-bezier(.25,1,.5,1);text-decoration:none}" +
+  ".dcf-social-btn:hover{color:var(--dcf-ink,#F5F5F5);border-color:var(--dcf-accent,#C80000);background:rgba(200,0,0,0.15);transform:translateY(-2px) scale(1.08);box-shadow:0 0 16px rgba(200,0,0,0.35)}" +
+  ".dcf-social-btn svg{width:19px;height:19px;fill:currentColor}" +
   ".dcf-link{position:relative;display:inline-block;font-size:14px;font-weight:550;color:var(--dcf-soft);padding:2px 0;transition:color .2s}" +
   ".dcf-link:hover{color:var(--dcf-ink)}" +
   ".dcf-squiggle{position:absolute;left:-2px;right:-2px;bottom:-4px;width:calc(100% + 4px);height:7px;pointer-events:none;opacity:0;visibility:hidden;transition:opacity .2s ease,visibility .2s ease}" +
