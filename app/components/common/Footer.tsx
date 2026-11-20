@@ -1,7 +1,7 @@
 'use client';
 
-import DoodleCrewFooter from '@/app/components/ui/doodle-crew-footer';
-import type { CrewMember, FooterColumn, FooterAction } from '@/app/components/ui/doodle-crew-footer';
+import SketchFooter from '@/app/components/ui/sketch-footer';
+import type { CrewMember, FooterColumn, FooterAction } from '@/app/components/ui/sketch-footer';
 import { contactInfo, getWhatsAppUrl, getEmailUrl, siteConfig } from '@/app/data/siteContent';
 
 // Hand-drawn characters customized across "TEDCOOL" (7 letters: T=0, E=1, D=2, C=3, O=4, O=5, L=6)
@@ -68,7 +68,7 @@ const TEDCOOL_CREW: CrewMember[] = [
 
 export default function Footer() {
   return (
-    <DoodleCrewFooter
+    <SketchFooter
       wordmark="TEDCOOL"
       brand={siteConfig.name}
       blurb={siteConfig.description}

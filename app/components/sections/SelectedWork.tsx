@@ -1,7 +1,7 @@
 'use client';
 
-import PolaroidLineCarousel from '@/app/components/ui/polaroid-line-carousel';
-import type { Slide } from '@/app/components/ui/polaroid-line-carousel';
+import WorkCarousel from '@/app/components/ui/work-carousel';
+import type { Slide } from '@/app/components/ui/work-carousel';
 import { getFeaturedProjects } from '@/app/data/projects';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
@@ -66,8 +66,8 @@ export default function SelectedWork() {
         </div>
       </div>
 
-      {/* Polaroid Line Carousel */}
-      <PolaroidLineCarousel
+      {/* Work Showcase Carousel */}
+      <WorkCarousel
         slides={slides}
         height="100svh"
         cardWidth={320}

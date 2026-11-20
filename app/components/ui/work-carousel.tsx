@@ -3,14 +3,8 @@
 import * as React from "react"
 
 /*
- * Polaroid Line Carousel — instant photos pegged to a sagging string. Drag the
- * line (or use the arrows) and the prints slide along it, swinging on their
- * pegs with the speed you give them and settling back with a little
- * overshoot; even at rest they sway in a light breeze. The one in the middle
- * is the one you're looking at.
- *
- * Drag, click a print, ←/→ and autoplay. Slides without an `image` get a
- * painted landscape, so it works with no assets at all.
+ * Work Carousel — kinetic interactive showcase line for Tedcool Media selected works.
+ * Project cards pegged dynamically to an interactive suspension line.
  */
 
 export type LandPalette = "dawn" | "alpine" | "dusk" | "mist"
@@ -29,7 +23,7 @@ export type Slide = {
   seed?: number
 }
 
-export type PolaroidLineCarouselProps = {
+export type WorkCarouselProps = {
   slides?: Slide[]
   /** Any CSS length. Default 100svh. */
   height?: number | string
@@ -50,6 +44,7 @@ export type PolaroidLineCarouselProps = {
   style?: React.CSSProperties
   ariaLabel?: string
 }
+export type PolaroidLineCarouselProps = WorkCarouselProps;
 
 // #region logic
 export function wrap(i: number, n: number): number {
@@ -269,7 +264,7 @@ const PL_CSS = [
   "@media (prefers-reduced-motion:reduce){.pl-cap>*{animation:none}.pl-print{transition:none}}",
 ].join("\n")
 
-export default function PolaroidLineCarousel({
+export default function WorkCarousel({
   slides = DEFAULT_SLIDES,
   height = "100svh",
   cardWidth = 300,
@@ -283,7 +278,7 @@ export default function PolaroidLineCarousel({
   className,
   style,
   ariaLabel = "Image carousel",
-}: PolaroidLineCarouselProps) {
+}: WorkCarouselProps) {
   const n = slides.length
   const srcs = useSlideImages(slides)
   const [active, setActive] = React.useState(0)
@@ -596,3 +591,6 @@ function PolaroidCard({
     </div>
   )
 }
+
+export { WorkCarousel as PolaroidLineCarousel }
+

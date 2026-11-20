@@ -5,6 +5,7 @@ import Navbar from '@/app/components/common/Navbar';
 import Footer from '@/app/components/common/Footer';
 import SmoothScroll from '@/app/components/common/SmoothScroll';
 import CursorSpotlight from '@/app/components/common/CursorSpotlight';
+import Preloader from '@/app/components/common/Preloader';
 import SwirlTransition from '@/app/components/common/SwirlTransition';
 
 const spaceGrotesk = Space_Grotesk({
@@ -61,6 +62,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
         />
       </head>
       <body className="min-h-screen flex flex-col bg-background text-foreground">
+        <Preloader />
         <SwirlTransition>
           <CursorSpotlight />
           <SmoothScroll>
